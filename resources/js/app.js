@@ -27,6 +27,35 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import { Form } from 'vform'
+window.Form = Form;
+
+import axios from "axios";
+window.axios = axios;
+
+import Swal from 'sweetalert2'
+window.Swal = Swal;
+
+import { BootstrapVue } from 'bootstrap-vue'
+
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+
+Vue.filter('filterDate', function (myDate) {
+    return moment(new Date(myDate)).format('Do MMMM YYYY, HH:mm:ss A');
+});
+
+Vue.filter('filterDateOnly', function (myDate) {
+    return moment(new Date(myDate)).format('Do MMMM YYYY');
+});
+
+
+
+Vue.filter('filterHumanDate', function (myDate) {
+    return moment(new Date(myDate)).format('Do MMMM YYYY, h:mm:ss A');
+})
+
+
 const app = new Vue({
     el: '#app',
 });
