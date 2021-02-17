@@ -50,12 +50,15 @@
                                         <span v-html="data.value"></span>
                                     </template>
                                     <template v-slot:cell(actions)="row">
+                                        <b-button class="btn btn-sm" @click="openViewModal(row.item)" variant="primary" data-toggle="tooltip">
+                                            View
+                                        </b-button>
 
                                         <b-button class="btn btn-sm" variant="success" @click="openEditModal(row.item)">
-                                            Edit
+                                            Resend
                                         </b-button>
                                         &nbsp;
-                                        <b-button @click="deletePatient(row.item.id)" class="btn btn-sm" variant="danger">
+                                        <b-button @click="deleteEmail(row.item.id)" class="btn btn-sm" variant="danger">
                                             Delete
                                         </b-button>
                                     </template>
@@ -116,6 +119,37 @@
                 </div>
             </div>
         </div>
+        <div class="modal" id="modal-large" tabindex="-1" role="dialog" aria-labelledby="modal-large" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5  class="modal-title" >View Email</h5>
+                    </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="col-12" >To</label>
+                                <p>{{form.toEmail}}</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-12" >Subject</label>
+                                <p>{{form.subject}}</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-12" >Content</label>
+                                <p v-html="form.content"></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -126,8 +160,8 @@ export default {
     data() {
         return {
             fields: ['#', 'toEmail','subject',
-                {key:'content', label:'content'},
-                {key:'created_at', label:'Sent At'},'actions'],
+                {key:'content', label:'content', formatter: 'truncate'},
+                {key:'created_at', label:'Sent At', formatter: 'formatDate'},'actions'],
             items: [],
             genders: [],
             services: [],
@@ -151,6 +185,15 @@ export default {
         }
     },
     methods: {
+         truncate(content) {
+                if (content.length > 20) {
+                    return content.substring(0, 20) + '...';
+                }
+                return content;
+         },
+        formatDate(date){
+          return  moment(new Date(date)).format('Do MMMM YYYY, h:mm:ss A');
+        },
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length
             this.currentPage = 1
@@ -192,7 +235,7 @@ export default {
             });
         },
 
-        async  deleteEmail(id) {
+        async deleteEmail(id) {
             await   Swal.fire({
                 title: 'Are you sure?',
                 text: "You want to delete this email and its attachments? You won't be able to revert this!",
@@ -204,11 +247,11 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     console.log(id);
-                    axios.delete('/api/patients/' + id,).then(({ data }) => {
+                    axios.delete('/api/sentEmails/' + id,).then(({ data }) => {
                         // console.log(data);
                         if (data.success) {
                             this.form.reset();
-                            this.getPatients();
+                            this.getSentEmails();
                             $('#mediumModal').modal('hide');
                             Swal.fire(
                                 'Deleted!',
@@ -222,7 +265,10 @@ export default {
                 }
             })
         },
-
+        openViewModal(email) {
+            $('#modal-large').modal('show');
+            this.form.fill(email);
+        },
     },
     mounted() {
         this.getSentEmails();

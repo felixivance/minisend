@@ -19,9 +19,9 @@
                     <li class="active">
                         <router-link to="/client/dashboard"><i class="menu-icon fa fa-dashboard"></i>Dashboard </router-link>
                     </li>
-                    <li class="menu-title">View Stats</li><!-- /.menu-title -->
+                    <li class="menu-title">View </li><!-- /.menu-title -->
                     <li>
-                        <router-link to="/client/emails"> <i class="menu-icon ti-home"></i>My Emails </router-link>
+                        <router-link to="/client/emails"> <i class="menu-icon fa fa-envelope"></i>My Emails </router-link>
                     </li>
 
                 </ul>

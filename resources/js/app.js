@@ -41,6 +41,11 @@ import { BootstrapVue } from 'bootstrap-vue'
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 
+//===momentjs ========
+import moment from 'moment';
+window.moment = moment;
+Vue.moment = moment;
+
 Vue.filter('filterDate', function (myDate) {
     return moment(new Date(myDate)).format('Do MMMM YYYY, HH:mm:ss A');
 });
