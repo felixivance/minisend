@@ -9,7 +9,7 @@
                 <div class="login-logo">
                     <a href="/" class="align-content">
 {{--                        <img class="align-content" src="images/logo.png" alt="">--}}
-                       <h1>Health Records Management System</h1>
+                       <h1>Welcome to MiniSend</h1>
                     </a>
                 </div>
                 <div class="login-form mt-4">
@@ -43,7 +43,7 @@
                         <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
 
                         <div class="register-link m-t-15 text-center mt-5">
-                            <p>  {{ date('Y') }} All Rights Reserved. Developed By Felix 0727 53 53 99  </p>
+                            <p>  {{ date('Y') }} All Rights Reserved. Developed By Felix (felixrunye@gmail.com)  </p>
                         </div>
                     </form>
                 </div>

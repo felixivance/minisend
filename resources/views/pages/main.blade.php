@@ -21,18 +21,8 @@
                     </li>
                     <li class="menu-title">View</li><!-- /.menu-title -->
                     <li>
-                        <router-link to="/admin/patients"> <i class="menu-icon ti-home"></i>Patients Records </router-link>
+                        <router-link to="/admin/patients"> <i class="menu-icon ti-home"></i>My Emails </router-link>
                     </li>
-
-                    <li class="menu-title">SETTINGS </li><!-- /.menu-title -->
-
-                    <li>
-                        <router-link to="/admin/gender" > <i class="menu-icon fa fa-cogs"></i>Gender </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/admin/services" > <i class="menu-icon fa fa-cogs"></i>Services </router-link>
-                    </li>
-
 
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -47,11 +37,11 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./">
 {{--                        <img src="/images/logo.png" alt="Logo">--}}
-                        HRM SYSTEM
+                        MiniSend
                     </a>
                     <a class="navbar-brand hidden" href="./">
 {{--                        <img src="/images/logo2.png" alt="Logo">--}}
-                        HRMS
+                        MiniSend
                     </a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
@@ -88,7 +78,7 @@
                         Copyright &copy; {{ now()->year }}  All Rights Reserved.
                     </div>
                       <div class="col-sm-6 text-right">
-                            Designed by <a href="tel:0727535399" style="color: blue" target="_blank"> Felix 0727 53 53 99</a>
+                            Designed by <a href="mailto:felixrunye@gmail.com" style="color: blue" target="_blank"> Felix </a>
                         </div>
                 </div>
             </div>
