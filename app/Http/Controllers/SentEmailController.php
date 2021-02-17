@@ -24,7 +24,7 @@ class SentEmailController extends Controller
 //'userId','toEmail','subject','content','status'
         try{
             $email = new SentEmail();
-            $email->user_id = Auth::id();
+            $email->userId = Auth::id();
             $email->toEmail = $request['toEmail'];
             $email->subject = $request['subject'];
             $email->content = $request['content'];

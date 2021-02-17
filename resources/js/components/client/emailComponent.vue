@@ -30,7 +30,7 @@
                                                     <option value="200">200</option>
                                                     <!-- <option value="-1">All</option> -->
                                                 </select>
-                                                patients
+                                                emails
                                             </label>
                                         </div>
                                     </div>
@@ -46,7 +46,11 @@
                                 </div>
                                 <br/>
                                 <b-table bordered :items="items" :per-page="perPage" :current-page="currentPage" :fields="fields" :filter="filter" show-empty @filtered="onFiltered">
+                                    <template v-slot:cell(content)="data">
+                                        <span v-html="data.value"></span>
+                                    </template>
                                     <template v-slot:cell(actions)="row">
+
                                         <b-button class="btn btn-sm" variant="success" @click="openEditModal(row.item)">
                                             Edit
                                         </b-button>
@@ -76,7 +80,7 @@
                         </button>
                         <h5  class="modal-title" id="mediumModalLabel">New Email</h5>
                     </div>
-                    <form @submit.prevent="addPatient()">
+                    <form @submit.prevent="sendEmail()">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">

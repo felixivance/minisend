@@ -1,3 +1,6 @@
+import Dashboard from '../components/client/dashboardComponent';
+import EmailComponent from '../components/client/emailComponent';
+
 export default [
     {
         path:'/client',
@@ -10,20 +13,10 @@ export default [
         name: 'Dashboard',
     },
     {
-        path: '/admin/patients',
-        component: Patients,
-        name: 'Patients',
+        path: '/client/emails',
+        component: EmailComponent,
+        name: 'EmailComponent',
     },
 
-    {
-        path: '/admin/gender',
-        component: Gender,
-        name: 'Gender',
-    },
-    {
-        path: '/admin/services',
-        component: Services,
-        name: 'Services',
-    },
 
 ]

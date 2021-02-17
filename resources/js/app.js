@@ -55,7 +55,14 @@ Vue.filter('filterHumanDate', function (myDate) {
     return moment(new Date(myDate)).format('Do MMMM YYYY, h:mm:ss A');
 })
 
+import router from './routes.js';
+
+//vue editor
+// Advanced Use - Hook into Quill's API for Custom Functionality
+import { VueEditor, Quill } from "vue2-editor";
+Vue.component('VueEditor', VueEditor);
 
 const app = new Vue({
     el: '#app',
+    router
 });
