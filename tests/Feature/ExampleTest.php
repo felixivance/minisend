@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic test example.
      *
@@ -15,9 +16,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-//        $response = $this->get('/');
-//
-//        $response->assertStatus(200);
+
+
         $this->withoutExceptionHandling();
         $response =  $this->post('/api/sentEmail',[
             'toEmail'=>'felixrunye@gmail.com',

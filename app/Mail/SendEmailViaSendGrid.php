@@ -30,21 +30,33 @@ class SendEmailViaSendGrid extends Mailable
      */
     public function build()
     {
-        $pdfData = file_get_contents(base_path('public/attachments/'.$this->data['attachment']));
-
         $address = "felix@kodipay.com";
         $subject = $this->data['subject'];
         $name = Auth::user()->firstName.' '.Auth::user()->lastName;
 // ->cc($address, $name)
 //            ->bcc($address, $name)
-        return $this->view('emails.test_html')
-            ->from($address, $name)
-            ->replyTo($address, $name)
-            ->subject($subject)
-            ->attachData($pdfData, 'attachment.pdf', [
-                'mime' => 'application/pdf',
-            ])
-            ->with([ 'content' => $this->data['content'] ]);
+        if(!is_null($this->data['attachment'])){
+            $pdfData = file_get_contents(base_path('public/attachments/'.$this->data['attachment']));
+            return $this->view('emails.test_html')
+                ->from($address, $name)
+                ->replyTo($address, $name)
+                ->subject($subject)
+                ->attachData($pdfData, 'attachment.pdf', [
+                    'mime' => 'application/pdf',
+                ])
+                ->with([ 'content' => $this->data['content'] ]);
+        }else{
+            return $this->view('emails.test_html')
+                ->from($address, $name)
+                ->replyTo($address, $name)
+                ->subject($subject)
+                ->with([ 'content' => $this->data['content'] ]);
+        }
+
+
+
+
+
 
     }
 }
