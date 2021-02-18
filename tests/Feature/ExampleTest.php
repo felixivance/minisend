@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\SentEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,8 +15,20 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+//        $response = $this->get('/');
+//
+//        $response->assertStatus(200);
+        $this->withoutExceptionHandling();
+        $response =  $this->post('/api/sentEmail',[
+            'toEmail'=>'felixrunye@gmail.com',
+            'subject'=>'Greetings',
+            'content'=>'Hey There',
+            'status'=>'posted'
+        ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
+
+        $this->assertCount(1, SentEmail::all());
+
     }
 }
