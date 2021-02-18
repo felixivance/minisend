@@ -33,7 +33,7 @@ which can be seen on the UserSeeder
 
 update your .env with the following details
 
-MAIL_MAILER=smtp
+``` MAIL_MAILER=smtp
 MAIL_HOST=smtp.sendgrid.net
 MAIL_PORT=587
 MAIL_USERNAME=apikey
@@ -42,6 +42,22 @@ MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=
 MAIL_FROM_NAME="MiniSend"
 
+```
 password gotten from sendgrid and mail from address your verified email address
 
 Learn more from [getting started](https://sendgrid.com/docs/for-developers/sending-email/api-getting-started/)  on sendgrid
+
+
+
+### Screenshots
+Dashboard
+![Image of Yaktocat](https://raw.githubusercontent.com/felixivance/minisend/master/public/screenshots/dashboard.png)
+
+Composing email
+![Image of Yaktocat](https://raw.githubusercontent.com/felixivance/minisend/master/public/screenshots/compose.png)
+
+Sending email
+![Image of Yaktocat](https://raw.githubusercontent.com/felixivance/minisend/master/public/screenshots/send.png)
+
+view Email
+![Image of Yaktocat](https://raw.githubusercontent.com/felixivance/minisend/master/public/screenshots/view.png)
