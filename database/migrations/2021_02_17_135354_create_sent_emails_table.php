@@ -22,6 +22,7 @@ class CreateSentEmailsTable extends Migration
             $table->string('subject');
             $table->longText('content');
             $table->string('status')->nullable();
+            $table->string('attachment')->nullable();
             $table->timestamps();
         });
     }

@@ -17,10 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResources([
         'sentEmails'=> 'SentEmailController',
-
     ]);
 
-//    Route::get('dashboardStatistics','PatientController@dashboardStatistics');
+    Route::get('dashboardStatistics','SentEmailController@dashboardStatistics');
 
 });
 

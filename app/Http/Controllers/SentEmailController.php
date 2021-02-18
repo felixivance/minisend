@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendEmail;
+use App\Mail\SendEmailViaSendGrid;
 use App\Models\SentEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class SentEmailController extends Controller
 {
@@ -29,9 +32,25 @@ class SentEmailController extends Controller
             $email->subject = $request['subject'];
             $email->content = $request['content'];
             $email->status = "posted";
+
+
+            if ($request->hasFile('attachment'))
+            {
+                $file      = $request->file('attachment');
+                $filename  = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $item   = date('His').'-'.$filename;
+                $file->move(public_path('attachments'), $item);
+                $email->attachment  = $item;
+            }
             $email->save();
 
-            //todo create job to send emails after 2 seconds of saving
+            //mailersend not working  :(
+//            $res = Mail::to($email->toEmail)->send(new SendEmail());
+
+            //opted send grid
+            $res = Mail::to($email->toEmail)->send(new SendEmailViaSendGrid($email));
+
 
             return api_response(true, null, 'success',
                 'successfully scheduled an email', $email);
@@ -81,4 +100,20 @@ class SentEmailController extends Controller
         }
     }
 
+    public function dashboardStatistics(){
+
+        $totalSentEmails = SentEmail::get()->count();
+        $postedEmails = SentEmail::where('status','posted')->count();
+        $sentEmails = SentEmail::where('status','posted')->count(); //posted=sent
+        $failedEmails = SentEmail::where('status','failed')->count();
+
+        $data = [
+            'totalSentEmails'=> $totalSentEmails,
+            'postedEmails'=>$postedEmails,
+            'sentEmails' => $sentEmails,
+            'failedEmails'=> $failedEmails
+        ];
+        return api_response(true, null, 'success',
+            'successfully fetched stats', $data);
+    }
 }

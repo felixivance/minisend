@@ -9,6 +9,6 @@ class SentEmail extends Model
 {
     use HasFactory;
 
-    protected $fillable=['userId','toEmail','subject','content','status'];
+    protected $fillable=['userId','toEmail','subject','content','status','attachment'];
 
 }

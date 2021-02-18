@@ -108,7 +108,15 @@
                                 </div>
 
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Add Attachment</label>
+                                        <input @change="selectFile" type="file" class="btn"  value="Add Attachment"
+                                               accept = "application/pdf">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -142,6 +150,7 @@
                                 <label class="col-12" >Content</label>
                                 <p v-html="form.content"></p>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
@@ -175,6 +184,7 @@ export default {
                 toEmail: '',
                 subject:'',
                 content: '',
+                attachment:''
 
             })
         }
@@ -185,6 +195,11 @@ export default {
         }
     },
     methods: {
+        selectFile(){
+            this.form.attachment = event.target.files[0];
+            console.log("photo");
+            console.log(this.form.attachment);
+        },
          truncate(content) {
                 if (content.length > 20) {
                     return content.substring(0, 20) + '...';
@@ -200,6 +215,7 @@ export default {
         },
         openModal() {
             $('#mediumModal').modal('show');
+            this.form.reset();
             this.editMode = false;
         },
         openEditModal(email) {
@@ -218,7 +234,16 @@ export default {
             });
         },
         async sendEmail() {
-            await  this.form.post('/api/sentEmails/').then(({ data }) => {
+            const data = new FormData();
+
+            data.append('toEmail',this.form.toEmail);
+            data.append('subject',this.form.subject);
+            data.append('content',this.form.content);
+            data.append('attachment',this.form.attachment);
+
+            const config = { headers: {'Content-Type': 'application/json'} };
+
+            await  axios.post('/api/sentEmails/', data, config).then(({ data }) => {
                 // console.log(data);
                 if (data.success) {
                     this.form.reset();
