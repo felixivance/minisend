@@ -8,6 +8,7 @@ use App\Models\SentEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class SentEmailController extends Controller
 {
@@ -25,6 +26,15 @@ class SentEmailController extends Controller
     public function store(Request $request)
     {
 //'userId','toEmail','subject','content','status'
+        $validator = Validator::make($request->all(),
+            [
+                'toEmail' => 'required|string',
+                'subject'=> 'required|string',
+                'content' => 'required|string',
+            ]);
+        if (!$validator->passes())
+            return api_response(false, $validator->errors()->all(), 'Missing fields', 'failed', "Required fields are missing or wrong inputs");
+
         try{
             $email = new SentEmail();
             $email->userId = Auth::id();
@@ -88,7 +98,10 @@ class SentEmailController extends Controller
     {
         try{
             $email = SentEmail::find($id);
-            //todo delete uploaded media for the email
+
+            if($email->attachment != null){
+                unlink(public_path('/attachments/'.$email->attachment));
+            }
             $email->delete();
 
             return api_response(true, null, 'success',
